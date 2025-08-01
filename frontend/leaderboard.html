@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.3.3/tsparticles.bundle.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="tsparticles"></div>
+  <header>
+    <h1>Top Interns Leaderboard 🏆</h1>
+  </header>
+
+  <div class="dashboard" id="leaderboardList"></div>
+<div id="tsparticles"></div>
+
+  <a href="dashboard.html" class="button">Back to Dashboard</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.3.3/tsparticles.bundle.min.js"></script>
+  <script src="particles.js"></script>
+  <script>
+    fetch('http://localhost:5000/api/leaderboard')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("leaderboardList");
+        container.innerHTML = data.map((intern, i) => `
+          <div class="card">
+            <h2>#${i + 1} ${intern.name}</h2>
+            <p>₹${intern.donations} raised</p>
+          </div>`).join('');
+      });
+  </script>
+  <script>
+  tsParticles.load("tsparticles", {
+    particles: {
+      number: { value: 40 },
+      size: { value: 4 },
+      move: { speed: 1 },
+      opacity: { value: 0.6 },
+      line_linked: { enable: true, distance: 120 },
+      color: { value: "#ffffff" }
+    },
+    background: {
+      color: "#00000000"
+    },
+    fullScreen: { enable: false }
+  });
+</script>
+
+</body>
+</html>

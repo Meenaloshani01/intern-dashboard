@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+ <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.3.3/tsparticles.bundle.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="tsparticles"></div>
+  <header>
+    <h1>Intern Dashboard</h1>
+  </header>
+
+  <div class="dashboard">
+    <div class="card" id="internName">Loading...</div>
+    <div class="card" id="referralCode"></div>
+    <div class="card" id="totalDonations"></div>
+    <div class="card" id="rewards"></div>
+  </div>
+<div id="tsparticles"></div>
+
+  <a href="leaderboard.html" class="button">View Leaderboard</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.3.3/tsparticles.bundle.min.js"></script>
+  <script src="particles.js"></script>
+  <script>
+    fetch('http://localhost:5000/api/intern')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("internName").innerHTML = `<h2>Name</h2><p>${data.name}</p>`;
+        document.getElementById("referralCode").innerHTML = `<h2>Referral Code</h2><p>${data.referralCode}</p>`;
+        document.getElementById("totalDonations").innerHTML = `<h2>Total Donations</h2><p>₹${data.totalDonations}</p>`;
+        document.getElementById("rewards").innerHTML = `<h2>Rewards</h2><ul>${data.rewards.map(r => `<li>${r}</li>`).join('')}</ul>`;
+      });
+  </script>
+  <script>
+  tsParticles.load("tsparticles", {
+    particles: {
+      number: { value: 40 },
+      size: { value: 4 },
+      move: { speed: 1 },
+      opacity: { value: 0.6 },
+      line_linked: { enable: true, distance: 120 },
+      color: { value: "#ffffff" }
+    },
+    background: {
+      color: "#00000000"
+    },
+    fullScreen: { enable: false }
+  });
+</script>
+
+</body>
+</html>
